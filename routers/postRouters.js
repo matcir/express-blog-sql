@@ -11,5 +11,5 @@ router.get("/", postController.index);
 router.get("/:id", postController.show);
 
 //destroy
-
+router.delete("/:id", postController.destroy);
 module.exports = router;

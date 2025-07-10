@@ -38,7 +38,31 @@ function show(req, res) {
   });
 }
 
+function destroy(req, res) {
+  const id = parseInt(req.params.id);
+
+  const sql = "DELETE FROM posts WHERE id = ?;";
+
+  connection.query(sql, [id], (err, results) => {
+    if (err)
+      return res.status(500).json({
+        error: true,
+        message: err.message,
+      });
+    console.log(results);
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({
+        error: "Not Found",
+        message: "Post non trovato",
+      });
+    }
+    res.sendStatus(204);
+  });
+}
+
 module.exports = {
   index,
   show,
+  destroy,
 };
