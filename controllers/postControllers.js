@@ -61,8 +61,53 @@ function destroy(req, res) {
   });
 }
 
+function store(req, res) {
+  console.log(req.body, "This is the req.body");
+  const { name, image } = req.body;
+
+  const sql = "INSERT INTO posts (name, image) VALUES (?, ?);";
+
+  connection.query(sql, [title, content, image], (err, results) => {
+    if (err)
+      return res.status(500).json({
+        error: true,
+        message: err.message,
+      });
+    console.log(results);
+
+    res.status(201).json({
+      id: results.insertId,
+    });
+  });
+}
+
+function update(req, res) {
+  const id = parseInt(req.params.id);
+
+  const sql = "UPDATE posts SET name = ?, image = ? WHERE id = ?;";
+
+  connection.query(sql, [name, image, id], (err, results) => {
+    if (err)
+      return res.status(500).json({
+        error: true,
+        message: err.message,
+      });
+    console.log(results);
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({
+        error: true,
+        message: "Not Found",
+      });
+    }
+    res.json({ success: true, message: "Pizza updated successfully" });
+  });
+}
+
 module.exports = {
   index,
   show,
   destroy,
+  store,
+  update,
 };
