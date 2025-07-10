@@ -63,9 +63,9 @@ function destroy(req, res) {
 
 function store(req, res) {
   console.log(req.body, "This is the req.body");
-  const { name, image } = req.body;
+  const { title, content, image } = req.body;
 
-  const sql = "INSERT INTO posts (name, image) VALUES (?, ?);";
+  const sql = "INSERT INTO posts (title, content, image) VALUES (?, ?, ?);";
 
   connection.query(sql, [title, content, image], (err, results) => {
     if (err)
