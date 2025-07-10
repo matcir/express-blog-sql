@@ -84,9 +84,10 @@ function store(req, res) {
 function update(req, res) {
   const id = parseInt(req.params.id);
 
-  const sql = "UPDATE posts SET name = ?, image = ? WHERE id = ?;";
+  const sql =
+    "UPDATE posts SET title = ?, content = ?, image = ? WHERE id = ?;";
 
-  connection.query(sql, [name, content, image], (err, results) => {
+  connection.query(sql, [title, content, image], (err, results) => {
     if (err)
       return res.status(500).json({
         error: true,
@@ -100,7 +101,7 @@ function update(req, res) {
         message: "Not Found",
       });
     }
-    res.json({ success: true, message: "Pizza updated successfully" });
+    res.json({ success: true, message: "Post updated successfully" });
   });
 }
 
