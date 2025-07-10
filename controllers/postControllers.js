@@ -86,7 +86,7 @@ function update(req, res) {
 
   const sql = "UPDATE posts SET name = ?, image = ? WHERE id = ?;";
 
-  connection.query(sql, [name, image, id], (err, results) => {
+  connection.query(sql, [name, content, image], (err, results) => {
     if (err)
       return res.status(500).json({
         error: true,
